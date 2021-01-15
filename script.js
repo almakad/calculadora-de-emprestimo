@@ -53,7 +53,6 @@ function save(amount, apr, years, zipcode) {
 
 window.onload = function () {
     if (window.localStorage && localStorage.loan_amount) {
-
         document.getElementById('amount').value = localStorage.loan_amount
         document.getElementById('apr').value = localStorage.loan_apr
         document.getElementById('years').value = localStorage.loan_years
@@ -76,23 +75,24 @@ function getLenders(amount, apr, years, zipcode) {
 
     var req = new XMLHttpRequest();
 
-    req.open('GET', url)
-    req.send(null)
-
+    req.open("GET", url)
+    
     req.onreadystatechange = function () {
         if (req.readyState == 4 && req.status == 200) {
             var response = req.responseText
+            console.log(url)
             var lenders = JSON.parse(response)
-
+            
             var list = ''
             for (var i = 0; i < lenders.lenght; i++) {
                 list += "<li><a href='" + lenders[i].url + "'>" +
-                    lenders[i].name + "</a>"
+                lenders[i].name + "</a>"
             }
             ad.innerHTML = "<ul>" + list + "</ul>"
-
+            
         }
     }
+    req.send(null)
 
 }
 
